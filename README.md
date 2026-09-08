@@ -8,6 +8,14 @@
 - Bundler 4.0.17
 
 ## セットアップ
+アプリケーションのコードは `develop` ブランチにあります。ブランチを指定してクローンしてください。
+
+```sh
+git clone -b develop https://github.com/wnakamizo/fbc_sinatra_memo_app.git
+cd fbc_sinatra_memo_app
+```
+
+続いて、依存する gem をインストールします。
 
 ```sh
 bundle install
