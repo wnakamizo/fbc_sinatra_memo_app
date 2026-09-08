@@ -1,0 +1,133 @@
+a {
+  color: #1f4f5f;
+}
+
+.button-link,
+button {
+  display: inline-block;
+  border: 1px solid #1f4f5f;
+  border-radius: 4px;
+  padding: 8px 14px;
+  color: #ffffff;
+  font: inherit;
+  text-decoration: none;
+  background: #1f4f5f;
+  cursor: pointer;
+}
+
+.button-link:hover,
+button:hover {
+  background: #173c48;
+}
+
+.memo-form {
+  max-width: 640px;
+  margin-top: 24px;
+}
+
+.form-field {
+  margin-bottom: 18px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font: inherit;
+  background: #ffffff;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.error-messages {
+  max-width: 640px;
+  border: 1px solid #b3261e;
+  border-radius: 4px;
+  padding: 12px 16px;
+  color: #5f1a16;
+  background: #fff0ee;
+}
+
+.error-messages p {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.memo-body {
+  white-space: pre-wrap;
+}
+
+@media (max-width: 600px) {
+  .memo-detail div {
+    grid-template-columns: 1fr;
+  }
+}
+
+.memo-detail {
+  max-width: 720px;
+  margin: 24px 0;
+}
+
+.memo-detail h1 {
+  margin: 0 0 16px;
+}
+
+.memo-body {
+  margin: 0;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #edf3f4;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.memo-detail > p:last-child {
+  margin: 16px 0 0;
+}
+
+.danger-button {
+  border-color: #8c1d18;
+  background: #8c1d18;
+}
+
+.danger-button:hover {
+  background: #681410;
+}
+
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.page-actions form {
+  margin: 0;
+}

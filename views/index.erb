@@ -1,0 +1,22 @@
+<h1>メモアプリ</h1>
+
+<p>
+  <a class="button-link" href="/memos/new">新しいメモを登録</a>
+</p>
+
+<div class="table-scroll">
+  <table class="memo-table">
+    <thead>
+      <tr>
+        <th scope="col">一覧</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @memos.each do |memo| %>
+        <tr>
+          <td><a href="/memos/<%= h(memo["id"]) %>"><%= h(memo["title"]) %></a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
