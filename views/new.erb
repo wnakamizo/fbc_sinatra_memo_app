@@ -16,12 +16,12 @@
 <form class="memo-form" action="/memos" method="post">
   <div class="form-field">
     <label for="title">タイトル</label>
-    <input type="text" id="title" name="title" value="<%= h(@memo["title"]) %>">
+    <input type="text" id="title" name="title" value="<%= h(@memo[:title]) %>">
   </div>
 
   <div class="form-field">
     <label for="description">内容</label>
-    <textarea id="description" name="description" rows="5"><%= h(@memo["description"]) %></textarea>
+    <textarea id="description" name="description" rows="5"><%= h(@memo[:description]) %></textarea>
   </div>
 
   <div class="form-actions">

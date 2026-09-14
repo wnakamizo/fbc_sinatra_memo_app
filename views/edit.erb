@@ -13,21 +13,21 @@
   </div>
 <% end %>
 
-<form class="memo-form" action="/memos/<%= h(@memo["id"]) %>" method="post">
+<form class="memo-form" action="/memos/<%= h(@id) %>" method="post">
   <input type="hidden" name="_method" value="patch">
 
   <div class="form-field">
     <label for="title">タイトル</label>
-    <input type="text" id="title" name="title" value="<%= h(@memo["title"]) %>">
+    <input type="text" id="title" name="title" value="<%= h(@memo[:title]) %>">
   </div>
 
   <div class="form-field">
     <label for="description">内容</label>
-    <textarea id="description" name="description" rows="5"><%= h(@memo["description"]) %></textarea>
+    <textarea id="description" name="description" rows="5"><%= h(@memo[:description]) %></textarea>
   </div>
 
   <div class="form-actions">
     <button type="submit">更新する</button>
-    <a href="/memos/<%= h(@memo["id"]) %>">詳細へ戻る</a>
+    <a href="/memos/<%= h(@id) %>">詳細へ戻る</a>
   </div>
 </form>

@@ -12,9 +12,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @memos.each do |memo| %>
+      <% @memos.each do |id, memo| %>
         <tr>
-          <td><a href="/memos/<%= h(memo["id"]) %>"><%= h(memo["title"]) %></a></td>
+          <td><a href="/memos/<%= h(id) %>"><%= h(memo[:title]) %></a></td>
         </tr>
       <% end %>
     </tbody>
