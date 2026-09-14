@@ -56,7 +56,6 @@ end
 
 get '/memos/new' do
   @memo = {}
-  @errors = []
   erb :new
 end
 
@@ -67,7 +66,6 @@ get '/memos/:id/edit' do
     status 404
     return erb :not_found
   end
-  @errors = []
   erb :edit
 end
 
@@ -86,28 +84,26 @@ not_found do
 end
 
 post '/memos' do
-  @memo = memo_params
   memos = load_memos
   id = SecureRandom.uuid
-  memos[memo_key(id)] = @memo
+  memos[memo_key(id)] = memo_params
   save_memos(memos)
 
   redirect "/memos/#{id}"
 end
 
 patch '/memos/:id' do
-  @id = params['id']
+  id = params['id']
   memos = load_memos
-  memo = find_memo_from(memos, @id)
+  memo = find_memo_from(memos, id)
   if memo.nil?
     status 404
     return erb :not_found
   end
-  @memo = memo_params
-  memos[memo_key(@id)] = @memo
+  memos[memo_key(id)] = memo_params
   save_memos(memos)
 
-  redirect "/memos/#{@id}"
+  redirect "/memos/#{id}"
 end
 
 delete '/memos/:id' do
