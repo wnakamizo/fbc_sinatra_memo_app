@@ -40,8 +40,8 @@ end
 
 def memo_params
   {
-    :title => params['title'].to_s,
-    :description => params['description'].to_s
+    title: params['title'].to_s,
+    description: params['description'].to_s
   }
 end
 
