@@ -2,17 +2,6 @@
 
 <p>登録したい内容を入力します。</p>
 
-<% unless @errors.empty? %>
-  <div class="error-messages" role="alert">
-    <p>入力内容を確認してください。</p>
-    <ul>
-      <% @errors.each do |error| %>
-        <li><%= h(error) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <form class="memo-form" action="/memos" method="post">
   <div class="form-field">
     <label for="title">タイトル</label>

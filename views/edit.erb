@@ -2,17 +2,6 @@
 
 <p>登録済みのメモを変更します。</p>
 
-<% unless @errors.empty? %>
-  <div class="error-messages" role="alert">
-    <p>入力内容を確認してください。</p>
-    <ul>
-      <% @errors.each do |error| %>
-        <li><%= h(error) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <form class="memo-form" action="/memos/<%= h(@id) %>" method="post">
   <input type="hidden" name="_method" value="patch">
 

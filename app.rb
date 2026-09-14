@@ -87,14 +87,6 @@ end
 
 post '/memos' do
   @memo = memo_params
-  @errors = []
-
-  if @memo[:title].strip.empty?
-    @errors << 'タイトルを入力してください'
-    status 422
-    return erb :new
-  end
-
   memos = load_memos
   id = SecureRandom.uuid
   memos[memo_key(id)] = @memo
@@ -112,12 +104,6 @@ patch '/memos/:id' do
     return erb :not_found
   end
   @memo = memo_params
-  @errors = []
-  if @memo[:title].strip.empty?
-    @errors << 'タイトルを入力してください'
-    status 422
-    return erb :edit
-  end
   memos[memo_key(@id)] = @memo
   save_memos(memos)
 
