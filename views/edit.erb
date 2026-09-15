@@ -2,7 +2,7 @@
 
 <p>登録済みのメモを変更します。</p>
 
-<form class="memo-form" action="/memos/<%= h(@id) %>" method="post">
+<form class="memo-form" action="/memos/<%= @id %>" method="post">
   <input type="hidden" name="_method" value="patch">
 
   <div class="form-field">
@@ -17,6 +17,6 @@
 
   <div class="form-actions">
     <button type="submit">更新する</button>
-    <a href="/memos/<%= h(@id) %>">詳細へ戻る</a>
+    <a href="/memos/<%= @id %>">詳細へ戻る</a>
   </div>
 </form>
