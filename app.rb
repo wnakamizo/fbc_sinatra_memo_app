@@ -23,7 +23,7 @@ def load_memos
 end
 
 def save_memos(memos)
-  File.write(MEMOS_FILE, "#{JSON.pretty_generate(memos)}\n")
+  File.write(MEMOS_FILE, JSON.pretty_generate(memos))
 end
 
 def memo_key(id)
