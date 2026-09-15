@@ -30,14 +30,6 @@ def memo_key(id)
   id.to_sym
 end
 
-def find_memo(id)
-  load_memos[memo_key(id)]
-end
-
-def find_memo_from(memos, id)
-  memos[memo_key(id)]
-end
-
 def memo_params
   {
     title: params['title'].to_s,
@@ -61,7 +53,7 @@ end
 
 get '/memos/:id/edit' do
   @id = params['id']
-  @memo = find_memo(@id)
+  @memo = load_memos[@id.to_sym]
   if @memo.nil?
     status 404
     return erb :not_found
@@ -71,7 +63,7 @@ end
 
 get '/memos/:id' do
   @id = params['id']
-  @memo = find_memo(@id)
+  @memo = load_memos[@id.to_sym]
   if @memo.nil?
     status 404
     return erb :not_found
@@ -95,7 +87,7 @@ end
 patch '/memos/:id' do
   id = params['id']
   memos = load_memos
-  memo = find_memo_from(memos, id)
+  memo = memos[id.to_sym]
   if memo.nil?
     status 404
     return erb :not_found
@@ -109,7 +101,7 @@ end
 delete '/memos/:id' do
   memos = load_memos
   id = params['id']
-  memo = find_memo_from(memos, id)
+  memo = memos[id.to_sym]
   if memo.nil?
     status 404
     return erb :not_found
