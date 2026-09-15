@@ -26,10 +26,6 @@ def save_memos(memos)
   File.write(MEMOS_FILE, JSON.pretty_generate(memos))
 end
 
-def memo_key(id)
-  id.to_sym
-end
-
 def memo_params
   {
     title: params['title'].to_s,
@@ -78,7 +74,7 @@ end
 post '/memos' do
   memos = load_memos
   id = SecureRandom.uuid
-  memos[memo_key(id)] = memo_params
+  memos[id.to_sym] = memo_params
   save_memos(memos)
 
   redirect "/memos/#{id}"
@@ -92,7 +88,7 @@ patch '/memos/:id' do
     status 404
     return erb :not_found
   end
-  memos[memo_key(id)] = memo_params
+  memos[id.to_sym] = memo_params
   save_memos(memos)
 
   redirect "/memos/#{id}"
@@ -106,7 +102,7 @@ delete '/memos/:id' do
     status 404
     return erb :not_found
   end
-  memos.delete(memo_key(id))
+  memos.delete(id.to_sym)
   save_memos(memos)
 
   redirect '/memos'
