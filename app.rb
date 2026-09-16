@@ -33,12 +33,6 @@ def memo_params
   }
 end
 
-def find_memo(memos, id)
-  memo = memos[id.to_sym]
-  halt 404 if memo.nil?
-  memo
-end
-
 get '/' do
   redirect '/memos'
 end
@@ -55,14 +49,18 @@ end
 get '/memos/:id/edit' do
   @id = params['id']
   memos = load_memos
-  @memo = find_memo(memos, @id)
+  @memo = memos[@id.to_sym]
+  halt 404 if @memo.nil?
+
   erb :edit
 end
 
 get '/memos/:id' do
   @id = params['id']
   memos = load_memos
-  @memo = find_memo(memos, @id)
+  @memo = memos[@id.to_sym]
+  halt 404 if @memo.nil?
+
   erb :show
 end
 
@@ -80,20 +78,20 @@ post '/memos' do
 end
 
 patch '/memos/:id' do
-  id = params['id']
+  id = params['id'].to_sym
   memos = load_memos
-  find_memo(memos, id)
-  memos[id.to_sym] = memo_params
+  halt 404 if memos[id].nil?
+  memos[id] = memo_params
   save_memos(memos)
 
   redirect "/memos/#{id}"
 end
 
 delete '/memos/:id' do
-  id = params['id']
+  id = params['id'].to_sym
   memos = load_memos
-  find_memo(memos, id)
-  memos.delete(id.to_sym)
+  halt 404 if memos[id].nil?
+  memos.delete(id)
   save_memos(memos)
 
   redirect '/memos'
