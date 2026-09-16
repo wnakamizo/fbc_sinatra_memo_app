@@ -33,6 +33,12 @@ def memo_params
   }
 end
 
+def find_memo(memos, id)
+  memo = memos[id.to_sym]
+  halt 404 if memo.nil?
+  memo
+end
+
 get '/' do
   redirect '/memos'
 end
@@ -43,27 +49,20 @@ get '/memos' do
 end
 
 get '/memos/new' do
-  @memo = {}
   erb :new
 end
 
 get '/memos/:id/edit' do
   @id = params['id']
-  @memo = load_memos[@id.to_sym]
-  if @memo.nil?
-    status 404
-    return erb :not_found
-  end
+  memos = load_memos
+  @memo = find_memo(memos, @id)
   erb :edit
 end
 
 get '/memos/:id' do
   @id = params['id']
-  @memo = load_memos[@id.to_sym]
-  if @memo.nil?
-    status 404
-    return erb :not_found
-  end
+  memos = load_memos
+  @memo = find_memo(memos, @id)
   erb :show
 end
 
@@ -72,8 +71,8 @@ not_found do
 end
 
 post '/memos' do
-  memos = load_memos
   id = SecureRandom.uuid
+  memos = load_memos
   memos[id.to_sym] = memo_params
   save_memos(memos)
 
@@ -83,11 +82,7 @@ end
 patch '/memos/:id' do
   id = params['id']
   memos = load_memos
-  memo = memos[id.to_sym]
-  if memo.nil?
-    status 404
-    return erb :not_found
-  end
+  find_memo(memos, id)
   memos[id.to_sym] = memo_params
   save_memos(memos)
 
@@ -95,13 +90,9 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  memos = load_memos
   id = params['id']
-  memo = memos[id.to_sym]
-  if memo.nil?
-    status 404
-    return erb :not_found
-  end
+  memos = load_memos
+  find_memo(memos, id)
   memos.delete(id.to_sym)
   save_memos(memos)
 
