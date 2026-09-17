@@ -6,12 +6,13 @@
 
 - Ruby 4.0.6
 - Bundler 4.0.17
+- PostgreSQL 18.6 (Debian 18.6-1.pgdg13+2)
 
 ## セットアップ
-アプリケーションのコードは `develop` ブランチにあります。ブランチを指定してクローンしてください。
+アプリケーションのコードは `DB-connect` ブランチにあります。ブランチを指定してクローンしてください。
 
 ```sh
-git clone -b develop https://github.com/wnakamizo/fbc_sinatra_memo_app.git
+git clone -b DB-connect https://github.com/wnakamizo/fbc_sinatra_memo_app.git
 cd fbc_sinatra_memo_app
 ```
 
@@ -19,6 +20,12 @@ cd fbc_sinatra_memo_app
 
 ```sh
 bundle install
+```
+
+初回のみ、以下のコマンドを実行してデータベースとテーブルを作成してください。
+
+```sh
+ruby bin/setup_db.rb
 ```
 
 ## 起動方法
@@ -31,4 +38,4 @@ bundle exec ruby app.rb
 
 ## データ保存
 
-メモのデータは `data/memos.json` に保存します。
+メモのデータは PostgreSQL の `memos` データベースに保存します。
