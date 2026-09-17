@@ -15,3 +15,5 @@ gem "puma", "~> 8.0"
 gem "rackup", "~> 2.3"
 
 gem "webrick", "~> 1.9"
+
+gem "pg", "~> 1.6"
