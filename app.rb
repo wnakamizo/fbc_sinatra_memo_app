@@ -7,7 +7,7 @@ require 'sinatra'
 require 'rack/utils'
 require 'pg'
 
-require_relative 'db'
+require_relative 'memo_repository'
 
 enable :method_override
 
