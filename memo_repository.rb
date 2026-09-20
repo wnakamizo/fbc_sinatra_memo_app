@@ -8,7 +8,7 @@ module MemoRepository
   end
 
   def self.load_memos
-    connection.exec('SELECT * FROM memos ORDER BY title')
+    connection.exec('SELECT * FROM memos ORDER BY id')
   end
 
   def self.find(id)
