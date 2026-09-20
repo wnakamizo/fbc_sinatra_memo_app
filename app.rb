@@ -37,9 +37,8 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  @id = params['id']
   begin
-    @memo = MemoRepository.find(@id).entries.first
+    @memo = MemoRepository.find(params['id']).entries.first
   rescue PG::Error
     halt 404
   end
@@ -49,9 +48,8 @@ get '/memos/:id/edit' do
 end
 
 get '/memos/:id' do
-  @id = params['id']
   begin
-    @memo = MemoRepository.find(@id).entries.first
+    @memo = MemoRepository.find(params['id']).entries.first
   rescue PG::Error
     halt 404
   end
@@ -83,8 +81,7 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  id = params['id']
-  MemoRepository.delete(id)
+  MemoRepository.delete(params['id'])
 
   redirect '/memos'
 end
