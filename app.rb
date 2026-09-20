@@ -37,23 +37,15 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  begin
-    @memo = MemoRepository.find(params['id'])
-  rescue PG::Error
-    halt 404
-  end
-  halt 404 if @memo.nil?
+  @memo = MemoRepository.find(params['id'])
+  halt 404 unless @memo
 
   erb :edit
 end
 
 get '/memos/:id' do
-  begin
-    @memo = MemoRepository.find(params['id'])
-  rescue PG::Error
-    halt 404
-  end
-  halt 404 if @memo.nil?
+  @memo = MemoRepository.find(params['id'])
+  halt 404 unless @memo
 
   erb :show
 end
@@ -70,11 +62,7 @@ end
 
 patch '/memos/:id' do
   id = params['id']
-  begin
-    edited = MemoRepository.edit(id, memo_params)
-  rescue PG::Error
-    halt 404
-  end
+  edited = MemoRepository.edit(id, memo_params)
   halt 404 unless edited
 
   redirect "/memos/#{id}"

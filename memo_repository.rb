@@ -14,6 +14,8 @@ module MemoRepository
 
     def find(id)
       connection.exec_params('SELECT * FROM memos WHERE id = $1', [id]).first
+    rescue PG::InvalidTextRepresentation
+      nil
     end
 
     def create(memo_params)
