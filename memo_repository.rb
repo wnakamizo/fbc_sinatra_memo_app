@@ -13,7 +13,7 @@ module MemoRepository
     end
 
     def find(id)
-      connection.exec_params('SELECT * FROM memos WHERE id = $1', [id])
+      connection.exec_params('SELECT * FROM memos WHERE id = $1', [id]).first
     end
 
     def create(memo_params)

@@ -28,7 +28,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = MemoRepository.load_memos.entries
+  @memos = MemoRepository.load_memos
   erb :index
 end
 
@@ -38,7 +38,7 @@ end
 
 get '/memos/:id/edit' do
   begin
-    @memo = MemoRepository.find(params['id']).entries.first
+    @memo = MemoRepository.find(params['id'])
   rescue PG::Error
     halt 404
   end
@@ -49,7 +49,7 @@ end
 
 get '/memos/:id' do
   begin
-    @memo = MemoRepository.find(params['id']).entries.first
+    @memo = MemoRepository.find(params['id'])
   rescue PG::Error
     halt 404
   end
