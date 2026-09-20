@@ -32,10 +32,14 @@ module MemoRepository
         [memo_params[:title], memo_params[:description], id]
       )
       result.cmd_tuples.positive?
+    rescue PG::InvalidTextRepresentation
+      nil
     end
 
     def delete(id)
       connection.exec_params('DELETE FROM memos WHERE id = $1', [id])
+    rescue PG::InvalidTextRepresentation
+      nil
     end
   end
 end
