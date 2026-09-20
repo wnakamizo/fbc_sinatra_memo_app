@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'securerandom'
 require 'sinatra'
 require 'rack/utils'
 require 'pg'
@@ -66,8 +65,7 @@ not_found do
 end
 
 post '/memos' do
-  id = SecureRandom.uuid
-  MemoRepository.create(id, memo_params)
+  id = MemoRepository.create(memo_params)
 
   redirect "/memos/#{id}"
 end

@@ -15,11 +15,12 @@ module MemoRepository
     connection.exec_params('SELECT * FROM memos WHERE id = $1', [id])
   end
 
-  def self.create(id, memo_params)
-    connection.exec_params(
-      'INSERT INTO memos (id, title, description) VALUES ($1, $2, $3)',
-      [id, memo_params[:title], memo_params[:description]]
+  def self.create(memo_params)
+    result = connection.exec_params(
+      'INSERT INTO memos (title, description) VALUES ($1, $2) RETURNING id',
+      [memo_params[:title], memo_params[:description]]
     )
+    result[0]['id']
   end
 
   def self.edit(id, memo_params)

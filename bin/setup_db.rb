@@ -10,7 +10,7 @@ conn.close
 conn = PG.connect(dbname: 'memos')
 conn.exec(<<~SQL)
   CREATE TABLE memos (
-    id UUID PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT
   )
