@@ -23,6 +23,12 @@ def memo_params
   }
 end
 
+def validate(id_text)
+  return 0 unless id_text =~ /\A\d+\z/
+
+  id_text.to_i
+end
+
 get '/' do
   redirect '/memos'
 end
@@ -37,14 +43,14 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  @memo = MemoRepository.find(params['id'])
+  @memo = MemoRepository.find(validate(params['id']))
   halt 404 unless @memo
 
   erb :edit
 end
 
 get '/memos/:id' do
-  @memo = MemoRepository.find(params['id'])
+  @memo = MemoRepository.find(validate(params['id']))
   halt 404 unless @memo
 
   erb :show
@@ -61,7 +67,7 @@ post '/memos' do
 end
 
 patch '/memos/:id' do
-  id = params['id']
+  id = validate(params['id'])
   edited = MemoRepository.edit(id, memo_params)
   halt 404 unless edited
 
@@ -69,7 +75,7 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  MemoRepository.delete(params['id'])
+  MemoRepository.delete(validate(params['id']))
 
   redirect '/memos'
 end
