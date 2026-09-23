@@ -2,28 +2,17 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'securerandom'
 require 'sinatra'
 require 'rack/utils'
 
-enable :method_override
+require_relative 'memo_repository'
 
-MEMOS_FILE = File.join(__dir__, 'data', 'memos.json')
+enable :method_override
 
 helpers do
   def h(value)
     Rack::Utils.escape_html(value)
   end
-end
-
-def load_memos
-  return {} unless File.exist?(MEMOS_FILE)
-
-  JSON.parse(File.read(MEMOS_FILE), symbolize_names: true)
-end
-
-def save_memos(memos)
-  File.write(MEMOS_FILE, JSON.pretty_generate(memos))
 end
 
 def memo_params
@@ -38,7 +27,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = load_memos
+  @memos = MemoRepository.load_memos
   erb :index
 end
 
@@ -47,19 +36,15 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  @id = params['id']
-  memos = load_memos
-  @memo = memos[@id.to_sym]
-  halt 404 if @memo.nil?
+  @memo = MemoRepository.find(params['id'].to_i)
+  halt 404 unless @memo
 
   erb :edit
 end
 
 get '/memos/:id' do
-  @id = params['id']
-  memos = load_memos
-  @memo = memos[@id.to_sym]
-  halt 404 if @memo.nil?
+  @memo = MemoRepository.find(params['id'].to_i)
+  halt 404 unless @memo
 
   erb :show
 end
@@ -69,30 +54,21 @@ not_found do
 end
 
 post '/memos' do
-  id = SecureRandom.uuid
-  memos = load_memos
-  memos[id.to_sym] = memo_params
-  save_memos(memos)
+  id = MemoRepository.create(memo_params)
 
   redirect "/memos/#{id}"
 end
 
 patch '/memos/:id' do
-  id = params['id'].to_sym
-  memos = load_memos
-  halt 404 if memos[id].nil?
-  memos[id] = memo_params
-  save_memos(memos)
+  id = params['id'].to_i
+  edited = MemoRepository.edit(id, memo_params)
+  halt 404 unless edited
 
   redirect "/memos/#{id}"
 end
 
 delete '/memos/:id' do
-  id = params['id'].to_sym
-  memos = load_memos
-  halt 404 if memos[id].nil?
-  memos.delete(id)
-  save_memos(memos)
+  MemoRepository.delete(params['id'].to_i)
 
   redirect '/memos'
 end

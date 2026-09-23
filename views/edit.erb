@@ -2,21 +2,21 @@
 
 <p>登録済みのメモを変更します。</p>
 
-<form class="memo-form" action="/memos/<%= @id %>" method="post">
+<form class="memo-form" action="/memos/<%= @memo['id'] %>" method="post">
   <input type="hidden" name="_method" value="patch">
 
   <div class="form-field">
     <label for="title">タイトル</label>
-    <input type="text" id="title" name="title" value="<%= h(@memo[:title]) %>">
+    <input type="text" id="title" name="title" value="<%= h(@memo['title']) %>">
   </div>
 
   <div class="form-field">
     <label for="description">内容</label>
-    <textarea id="description" name="description" rows="5"><%= h(@memo[:description]) %></textarea>
+    <textarea id="description" name="description" rows="5"><%= h(@memo['description']) %></textarea>
   </div>
 
   <div class="form-actions">
     <button type="submit">更新する</button>
-    <a href="/memos/<%= @id %>">詳細へ戻る</a>
+    <a href="/memos/<%= @memo['id'] %>">詳細へ戻る</a>
   </div>
 </form>
