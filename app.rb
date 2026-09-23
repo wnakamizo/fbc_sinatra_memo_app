@@ -4,7 +4,6 @@
 require 'json'
 require 'sinatra'
 require 'rack/utils'
-require 'pg'
 
 require_relative 'memo_repository'
 
@@ -23,12 +22,6 @@ def memo_params
   }
 end
 
-def validate(id_text)
-  return 0 unless id_text =~ /\A\d+\z/
-
-  id_text.to_i
-end
-
 get '/' do
   redirect '/memos'
 end
@@ -43,14 +36,14 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  @memo = MemoRepository.find(validate(params['id']))
+  @memo = MemoRepository.find(params['id'].to_i)
   halt 404 unless @memo
 
   erb :edit
 end
 
 get '/memos/:id' do
-  @memo = MemoRepository.find(validate(params['id']))
+  @memo = MemoRepository.find(params['id'].to_i)
   halt 404 unless @memo
 
   erb :show
@@ -67,7 +60,7 @@ post '/memos' do
 end
 
 patch '/memos/:id' do
-  id = validate(params['id'])
+  id = params['id'].to_i
   edited = MemoRepository.edit(id, memo_params)
   halt 404 unless edited
 
@@ -75,7 +68,7 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  MemoRepository.delete(validate(params['id']))
+  MemoRepository.delete(params['id'].to_i)
 
   redirect '/memos'
 end
